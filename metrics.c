@@ -54,10 +54,11 @@ int main(int argc, char **argv)
 
   if (world_rank == 0)
   {
+    fprintf(results_file, "\n");
     for (; msg_length < maxLength; msg_length *= 2)
     {
       numBytes = sizeof(char) * msg_length * 2;
-      fprintf(results_file, "\n%d", numBytes);
+      fprintf(results_file, "%d", numBytes);
       for (; single_size_iterator <= num_loops_within_single_size; single_size_iterator++)
       {
         t1 = MPI_Wtime();
