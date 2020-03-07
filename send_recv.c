@@ -18,6 +18,9 @@ int main(int argc, char **argv)
   }
   // End of world size check
 
+
+
+
   // //MPI_Send() - blocking call
   // int number;
   // if (world_rank == 0)
@@ -50,6 +53,9 @@ int main(int argc, char **argv)
   //   MPI_Recv(&number, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
   //   printf("MPI_Ssend Process 1 received number %d from process 0\n", number);
   // }
+
+
+
 
   // //MPI_Bsend() - buffer space provided with MPI_Buffer_attach
   // char *buf;
@@ -84,6 +90,9 @@ int main(int argc, char **argv)
   //   MPI_Buffer_detach( &buf, &bufsize );
   // }
 
+
+
+
   // //MPI_Rsend() - blocking ready send, thread safe
   // int number = 66;
 
@@ -100,6 +109,9 @@ int main(int argc, char **argv)
   //   MPI_Rsend(&number, 1, MPI_INT, 0, 1, MPI_COMM_WORLD);
   //   //MPI_Wait(&request, &status);
   // }
+
+
+
 
   //MPI_Isend() - async
   // int number = 17, flag=0;
