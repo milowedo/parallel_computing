@@ -6,7 +6,6 @@
 int main(int argc, char **argv)
 {
     int world_rank, world_size;
-    int max_amount_of_hits = 12;
 
     MPI_Init(NULL, NULL);
     MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
@@ -15,6 +14,7 @@ int main(int argc, char **argv)
     if (world_size < 3)
         goto END;
 
+    int max_amount_of_hits = 12;
     int hit = 0;
     MPI_Request request;
     MPI_Status status;
