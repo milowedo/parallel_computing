@@ -49,8 +49,8 @@ int main(int argc, char **argv)
   MPI_Status status;
 
   double t1, t2, probeTime;
-  int numBytes, msg_length = 1, maxLength = 2048, string_filler_iterator = 0,
-                num_loops_within_single_size = 10000, single_size_iterator = 1;
+  int numBytes, msg_length = 1, maxLength = 65536, string_filler_iterator = 0,
+                num_loops_within_single_size = 100000, single_size_iterator = 1;
   char msgbuf[maxLength], rmsg1[maxLength * 2];
 
   for (; string_filler_iterator < maxLength; string_filler_iterator++)
