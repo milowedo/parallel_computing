@@ -1,0 +1,24 @@
+4 maszyny x 4 CPU (nody 01, 02, 03, 04)
+8 maszyn x 1 CPU (nody od 05 do 12)
+
+1. Komunikacja na 1 nodzie (pamięć współdzielona)
+mpiexec --host vnode-04.dydaktyka.icsr.agh.edu.pl:2 -np 2 ./out 1node_shmem_no_buff
+mpiexec --host vnode-04.dydaktyka.icsr.agh.edu.pl:2 -np 2 ./out 1node_shmem
+
+
+2. Komunikacja na 1 nodzie (bez pamięci współdzielonej, przez sieć)
+mpiexec --host vnode-04.dydaktyka.icsr.agh.edu.pl:2 -np 2 -env MPICH_NO_LOCAL 1  -env MPIR_CVAR_CH3_NOLOCAL 1 ./out 1node_net_no_buff
+mpiexec --host vnode-04.dydaktyka.icsr.agh.edu.pl:2 -np 2 -env MPICH_NO_LOCAL 12 -env MPIR_CVAR_CH3_NOLOCAL 1 ./out 1node_net
+
+
+3. Komunikacja między 2 nodami na tym samym hoście fizycznym (przez sieć)
+należy wziąć po jednym procesorze z dwóch maszyn, spośród vnode-01, vnode-02, vnode-03
+mpiexec --hostfile nodes1_3 -np 2 ./out 2nodes_1_3
+mpiexec --hostfile nodes1_3 -np 2 ./out 2nodes_1_3_no_buff
+
+
+4. Komunikacja między 2 nodami na różnych hostach fizycznych (przez sieć)
+należy wziąć po jednym procesorze z dwóch maszyn, spośród vnode-05 - vnode-12
+mpiexec --hostfile nodes5_12 -np 2 ./out 2nodes_1_3
+mpiexec --hostfile nodes5_12 -np 2 ./out 2nodes_1_3_no_buff
+
