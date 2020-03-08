@@ -43,8 +43,8 @@ int main(int argc, char **argv)
   MPI_Status status;
 
   double t1, t2, probeTime;
-  int numBytes, msg_length = 1, maxLength = 65536, string_filler_iterator = 0,
-                num_loops_within_single_size = 100000, single_size_iterator = 1;
+  int numBytes, msg_length = 1, maxLength = 32768, string_filler_iterator = 0,
+                num_loops_within_single_size = 15*1000, single_size_iterator = 1;
   char msgbuf[maxLength];
 
   for (; string_filler_iterator < maxLength; string_filler_iterator++)
@@ -89,7 +89,7 @@ int main(int argc, char **argv)
   {
 
     fclose(results_file);
-    realloc(filename, 0);
+    free(filename);
   }
   MPI_Finalize();
   printf("FINISHED\n");
