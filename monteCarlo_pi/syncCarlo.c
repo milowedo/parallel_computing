@@ -12,17 +12,19 @@ int main(int argc, char **argv)
     MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
-    int num_of_points = 100 * 1000, i, points_in_circle = 0;
+    unsigned long long num_of_points = 100 * 1000000, points_in_circle = 0;
+    int i;
     float x, y, dist, PI;
+    char* endPtr;
 
     if (argc < 2)
     {
-        printf("You have not passed the number of points as argument - assuming %d\n", num_of_points);
+        printf("You have not passed the number of points as argument - assuming %llu\n", num_of_points);
     }
     else
     {
-        num_of_points = atoi(argv[1]);
-        printf("Running for %d points\n", num_of_points);
+        num_of_points = strtoull(argv[1], &endPtr, 10);
+        printf("Running for %llu points\n", num_of_points);
     }
     srand(time(NULL));
     for (i = 0; i < num_of_points; i++)
