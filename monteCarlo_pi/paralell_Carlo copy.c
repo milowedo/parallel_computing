@@ -38,25 +38,19 @@ int main(int argc, char **argv)
     else
     {
         num_of_points = strtoull(argv[1], &endPtr, 10);
-    }
-
-    if (argc > 2 && atoi(argv[2]) == 0)
-    {
-        local_points_num = num_of_points;
-        if (world_rank == 0)
-        {
-            printf("Running for %llu points on each of %d tasks\n", num_of_points, world_size);
-            fflush(stdout);
-        }
-    }
-    else
-    {
-        local_points_num = num_of_points / world_size;
         if (world_rank == 0)
         {
             printf("Running for total of %llu points divided for %d tasks\n", num_of_points, world_size);
             fflush(stdout);
         }
+    }
+    if (argc > 2 && atoi(argv[2]) == 0)
+    {
+        local_points_num = num_of_points;
+    }
+    else
+    {
+        local_points_num = num_of_points / world_size;
     }
     // printf("Running for %llu points on %s\n", local_points_num, name);
     // fflush(stdout);
@@ -104,9 +98,6 @@ int main(int argc, char **argv)
     if (world_rank == 0)
     {
         PI = (float)(4.0) * ((float)(points_in_circle_global) / (float)(num_of_points));
-        if(num_of_points == local_points_num){
-            PI = PI / (float) world_size;
-        }
         printf("PI: %lf\n", PI);
         printf("Total time: %lf\n\n", global_time);
         fflush(stdout);
