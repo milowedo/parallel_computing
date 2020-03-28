@@ -9,6 +9,6 @@ do
     sbatch wsad_dont_scale.sh 12 $2
     cd ../scale
     sbatch wsad_scale.sh 12 $2
-    sleep 4800
+    sleep 7200
     cd ..
 done

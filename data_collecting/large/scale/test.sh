@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH --nodes 1
 #SBATCH --ntasks 12
-#SBATCH --time=02:30:00
+#SBATCH --time=00:20:00
 #SBATCH --exclusive
 #SBATCH --partition=plgrid
 #SBATCH --constraint="intel"
