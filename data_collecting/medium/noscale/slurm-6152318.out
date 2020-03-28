@@ -1,0 +1,39 @@
+ plgrid/tools/gcc/4.9.2 loaded.
+ plgrid/tools/java7/oracle/1.7.0_51 loaded.
+ plgrid/tools/openmpi/1.10.2-gnu-4.9.2-ib loaded.
+[n0780-g7x:28933] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_plm_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+[n0780-g7x:28933] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_ras_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+100000000,1,7.605281
+[n0780-g7x:28940] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_plm_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+[n0780-g7x:28940] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_ras_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+100000000,2,3.851661
+[n0780-g7x:28950] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_plm_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+[n0780-g7x:28950] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_ras_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+100000000,3,2.617687
+[n0780-g7x:28966] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_plm_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+[n0780-g7x:28966] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_ras_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+100000000,4,1.959583
+[n0780-g7x:28984] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_plm_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+[n0780-g7x:28984] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_ras_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+100000000,5,1.684765
+[n0780-g7x:29006] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_plm_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+[n0780-g7x:29006] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_ras_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+100000000,6,1.407501
+[n0780-g7x:29032] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_plm_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+[n0780-g7x:29032] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_ras_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+100000000,7,1.226655
+[n0780-g7x:29062] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_plm_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+[n0780-g7x:29062] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_ras_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+100000000,8,1.068174
+[n0780-g7x:29096] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_plm_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+[n0780-g7x:29096] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_ras_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+100000000,9,0.901032
+[n0780-g7x:29134] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_plm_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+[n0780-g7x:29134] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_ras_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+100000000,10,0.894281
+[n0780-g7x:29176] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_plm_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+[n0780-g7x:29176] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_ras_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+100000000,11,0.797604
+[n0780-g7x:29222] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_plm_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+[n0780-g7x:29222] mca: base: component_find: unable to open /software/local/el6/COMMON/OpenMPI/1.10.2/ib/gcc/4.9.2/lib/openmpi/mca_ras_tm: libtorque.so.2: cannot open shared object file: No such file or directory (ignored)
+100000000,12,0.745874

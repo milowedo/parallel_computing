@@ -2,6 +2,8 @@
 #SBATCH --nodes 1
 #SBATCH --ntasks 12
 #SBATCH --time=02:00:00
+#SBATCH --exclusive 
+#SBATCH --constraint="intel"
 #SBATCH --partition=plgrid
 #SBATCH --account=plgmilowedo2020a
 

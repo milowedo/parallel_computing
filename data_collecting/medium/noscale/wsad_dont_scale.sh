@@ -1,8 +1,10 @@
 #!/bin/bash -l
 #SBATCH --nodes 1
 #SBATCH --ntasks 12
-#SBATCH --time=00:15:00
-#SBATCH --partition=plgrid-testing
+#SBATCH --time=00:05:00
+#SBATCH --exclusive 
+#SBATCH --constraint="intel"
+#SBATCH --partition=plgrid
 #SBATCH --account=plgmilowedo2020a
 
 module add plgrid/tools/openmpi

@@ -2,7 +2,9 @@
 #SBATCH --nodes 1
 #SBATCH --ntasks 12
 #SBATCH --time=03:30:00
+#SBATCH --exclusive
 #SBATCH --partition=plgrid
+#SBATCH --constraint="intel"
 #SBATCH --account=plgmilowedo2020a
 
 module add plgrid/tools/openmpi
