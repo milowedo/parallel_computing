@@ -23,8 +23,7 @@ int main(int argc, char **argv)
     char name[MPI_MAX_PROCESSOR_NAME];
     MPI_Get_processor_name(name, &len);
 
-    unsigned long long num_of_points = 100 * 1000000, points_in_circle_global = 0, local_points_num, local_circle_points = 0;
-    int i;
+    unsigned long long num_of_points = 100 * 1000000, points_in_circle_global = 0, local_points_num, local_circle_points = 0, i;
     float x, y, dist, PI;
     char *endPtr;
     double global_start = 0, global_stop = 0, global_time;
