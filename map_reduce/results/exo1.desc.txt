@@ -1,0 +1,8 @@
+Na screenie widać poszczególne etapy zadania wykonane przez apache spark.
+Mamy status zadania - succeeded - wykonało się ono więc poprawnie i zakończyło, potem event timeline, gdzie widać rozłożenie akcji w czasie.
+Ciekawe jest DAG Visualization, gdzie na diagramie widzimy flow całego joba, przejście pomiędzy kolejny Stage'ami.
+Stage wylistowane są w tabelki Completed Stages (2) - 2 oznacza liczbę elementów w niej zawartych. Poszczególne elementy tabeli możemy rozwijać(click on +details).
+Po takim rozwinięciu widzimy stack trace wykonanych akcji.
+Oprócz szczegółow dla każdego etapu mamy czas rozpoczęcia, trwanie, czy etap się udał, input i output danych jakie poszczególne etapy przyjęły, zwróciły.
+Mamy też wartości Shuffle.
+Generalnie widać wszystkie informacje związane z przebiegiem uruchomionego joba.

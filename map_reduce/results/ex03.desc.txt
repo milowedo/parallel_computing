@@ -1,0 +1,24 @@
+Najczęściej pobierane eksperymenty:
+[('566704b74269a82e7f0004a1', 10137), ('5667f07a4269a82e7f000e13', 9672), ('566ec1d64269a8482b000239', 8779), ('564c979e4269a832e100caee', 1175),
+    ('56e4110c4269a8402000ada5', 398), ('56e2a98b4269a87580002350', 356), ('5557c5714269a83325000016', 303), ('5558960f4269a849eb001820', 176),
+     ('55588fda4269a849eb000f9e', 173), ('555896b14269a849eb001970', 167)]
+
+Mam szczerą nadzieję, że wyniki są w porządku:)
+
+Kod z ex03 w skrócie zaczytuje plik do rdd, filtruje linie względem zadanego regexu -
+jeżeli linia nie zawiera "/experiments/[a-z0-9]*?/experiment_stats" - jest odfiltrowywana. Następnie z takich lini wyciągany jest środek,
+([a-z0-9]*?)  - taka konkretnie grupa, według zadanego w poleceniu przykładu charakteryzuje id eksperymentu. Tak więc każda linia mapowana jest
+własnie na to id(stąd to brzydkie "wyciąganie" dwie linijki wyżej). Taki stream ID jest następnie zamieniany na mapę ID - 1,
+taka mapa jest redukowana(zamieniane są klucze z wartościami i używam funkcji sortującej po kluczu - zgapione z definicji sortBy w klasie rdd.py)
+względem wartości(potrzebujemy liczby kluczy, czyli id). Następnie brane jest 10 pierwszych wartości i wypisywane na stdout.
+
+
+Czemu wczytywanie danych z jednego pliku może być w praktyce nieefektywne?
+
+Generalnie przy map reduce pokroju spark/hadoop chyba raczej chcemy wczytywać dane z jednego pliku,
+który potem podzielimy na mniejsze i rozdamy pomiędzy workery.
+Ale jeżeli to pytanie nie jest podchwytliwe, to z chęcią dostarczę odpowiedź w najbliższym czasie:)
+
+koniec,
+pozdrawiam,
+Miłosz Szwedo.

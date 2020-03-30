@@ -1,0 +1,24 @@
+Po wielu problemach udało sie zasubmitować zadanie masterowi do wykonania.
+Zgodnie z poleceniem opisuję działanie kody ../mpr/ex02
+
+na początek zaimportowałem random do generowania liczb pseudolosowych
+
+następnie ustawiona zostaje zmienna środowiskowa wskazująca na lokalizacje hadoopa na dysku
+
+następuje zbudowanie sparkowej sesji, w jej builderze ustawiana jest nazwa oraz adres mastera,
+utworzonego za pomocą spark-class org.apache.spark.deploy.master.Master - domyślny url spark://192.168.1.2:7077
+
+następnie definiowana jest liczba próbek, które chcę wygenerować w monte carlo
+
+następnie definicja funkcji inside, która losuje dwie pseudolosowe liczby <1 traktowane jako odcięta i rzędna
+na koniec zwraca true/false w zależności czy punkt tak "wylosowany" znajduje się w kole jednostkowym
+
+na sparkContext'cie wołana jest funkcja parallelize, która używając xrange dystrybuuje stworzoną kolekcje punktów
+w celu stworzenia RDD.
+RDD zostaje następnie przefiltrowane predykatem ze stworzonej wcześniej funkcji inside, pozostałe punkty są zliczane reduktorem count.
+
+na sam koniec printowana jest wyliczona wartość PI(4* punkty w kole jednostkowym/wszystkie punkty)
+
+Tak zaimplementowana logika uruchamiana jest za pomocą komendy
+spark-submit --master spark://192.168.1.2:7077 C:\long_path\MPR-spark-lab01\mpr\ex02.py
+Wyniki obserwujemy na MasterWebUi.
