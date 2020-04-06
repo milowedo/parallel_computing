@@ -1,0 +1,9 @@
+maxIter: max number of iterations (>= 0). - maksymalna liczba iteracji
+
+regParam: regularization parameter (>= 0). - parametr określający zmianę danych w celu minimalizacji błędu/overfittingu
+
+tol: the convergence tolerance for iterative algorithms (>= 0). - próg toleracji/dokładności.
+Jeżeli dany algorytm iteracyjny zejdzie poniżej tej wartości, kolejne iteracje nie są potrzebne
+
+fitIntercept: whether to fit an intercept term. - przyjmuje wartości True/False.
+Decyduje, czy dodać do próbek wartość intercept czy nie.

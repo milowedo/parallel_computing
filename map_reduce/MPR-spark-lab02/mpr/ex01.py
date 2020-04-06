@@ -8,6 +8,7 @@ if __name__ == '__main__':
     if os.name == 'nt':
         print('detected windows, setting HADOOP_HOME')
         os.environ['HADOOP_HOME'] = 'C:/hadoop/hadoop-2.7.1'
+        
     spark = SparkSession.builder \
         .master("local") \
         .appName("Word Count") \
@@ -15,12 +16,18 @@ if __name__ == '__main__':
 
     sc = spark.sparkContext
 
-    rdd = sc.textFile('../text').flatMap(lambda line: line.split(' ')).map(lambda w: Row(w))
-    df = rdd.toDF(['word'])
-    # peek the content of the DataFrame (use just for debug! as it can execute the while pipeline)
-    df.show()
+    rdd = sc.textFile('../text'). \
+        flatMap(lambda line: line.split(' ')) \
+        .map(lambda item: item.replace(',', '')) \
+        .filter(lambda item: item.strip()) \
+        .map(lambda w: Row(w))
+    df = rdd.toDF(['word']) \
+        .groupBy('word') \
+        .count() \
+        .sort("count", ascending=False)
+    df.show(10)
     # write as csv
-    # df.write.csv('result')
+    df.write.save('ex01.txt')
 
     time.sleep(300)
 

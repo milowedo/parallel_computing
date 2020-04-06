@@ -1,0 +1,11 @@
+Model z normalnymi danymi:
+Coefficient:  [1.9991354613303454]
+Intercept:  1.0170314117921977
+
+Model z danymi z errorem
+Coefficient:  [1.9897709688831466]
+Intercept:  1.6760778879786689
+
+
+
+Szum wpłynął na wyniki, predykcje z szumem są gorsze od tych bez niego.
