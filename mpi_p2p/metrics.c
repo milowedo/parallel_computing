@@ -43,9 +43,9 @@ int main(int argc, char **argv)
   MPI_Status status;
 
   double t1, t2, probeTime;
-  int numBytes, msg_length = 1, maxLength = 32768, string_filler_iterator = 0,
+  int numBytes, msg_length = 512, maxLength = 8388608, string_filler_iterator = 0,
                 num_loops_within_single_size = 15*1000, single_size_iterator = 1;
-  char msgbuf[maxLength];
+  char* msgbuf = (char *)malloc(sizeof(char) * maxLength);;
 
   for (; string_filler_iterator < maxLength; string_filler_iterator++)
   {
@@ -62,8 +62,8 @@ int main(int argc, char **argv)
       for (; single_size_iterator <= num_loops_within_single_size; single_size_iterator++)
       {
         t1 = MPI_Wtime();
-        MPI_Send(&msgbuf, msg_length, MPI_CHAR, 1, 0, MPI_COMM_WORLD);
-        MPI_Recv(&msgbuf, msg_length, MPI_CHAR, 1, 0, MPI_COMM_WORLD, &status);
+        MPI_Send(msgbuf, msg_length, MPI_CHAR, 1, 0, MPI_COMM_WORLD);
+        MPI_Recv(msgbuf, msg_length, MPI_CHAR, 1, 0, MPI_COMM_WORLD, &status);
         t2 = MPI_Wtime();
         probeTime = t2 - t1;
         fprintf(results_file, ",%lf", probeTime);
@@ -78,8 +78,8 @@ int main(int argc, char **argv)
     {
       for (; single_size_iterator <= num_loops_within_single_size; single_size_iterator++)
       {
-        MPI_Recv(&msgbuf, msg_length, MPI_CHAR, 0, 0, MPI_COMM_WORLD, &status);
-        MPI_Send(&msgbuf, msg_length, MPI_CHAR, 0, 0, MPI_COMM_WORLD);
+        MPI_Recv(msgbuf, msg_length, MPI_CHAR, 0, 0, MPI_COMM_WORLD, &status);
+        MPI_Send(msgbuf, msg_length, MPI_CHAR, 0, 0, MPI_COMM_WORLD);
       }
       single_size_iterator = 1;
     }
@@ -91,6 +91,7 @@ int main(int argc, char **argv)
     fclose(results_file);
     free(filename);
   }
+  free(msgbuf);
   MPI_Finalize();
   printf("FINISHED\n");
   return 0;
