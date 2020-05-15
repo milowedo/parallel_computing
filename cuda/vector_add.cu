@@ -18,7 +18,7 @@ int main(void)
 
     if (argc != 4)
     {
-        fprintf(stderr, "You have to provide ARRAY_SIZE, THREAD_COUNT, BLOCK_COUNT and  as arguments.\n");
+        fprintf(stderr, "You have to provide ARRAY_SIZE, NUM_BLOCK, BLOCK_SIZE and  as arguments.\n");
         return -1;
     }
     
@@ -28,15 +28,15 @@ int main(void)
     ul_conv = strtoul(argv[1], &p, 10);
     ARRAY_SIZE = ul_conv;
 
-    int THREAD_COUNT;
+    int NUM_BLOCK;
     ul_conv = strtoul(argv[2], &p, 10);
-    THREAD_COUNT = ul_conv;
+    NUM_BLOCK = ul_conv;
 
-    int BLOCK_COUNT;
+    int BLOCK_SIZE;
     ul_conv = strtoul(argv[3], &p, 10);
-    BLOCK_COUNT = ul_conv;
-    
-    int N = 10;
+    BLOCK_SIZE = ul_conv;
+
+    int N = ARRAY_SIZE;
     int a[N], b[N], c[N];
 
     int *dev_a, *dev_b, *dev_c;
@@ -59,7 +59,7 @@ int main(void)
     sdkResetTimer(&timer);
     sdkStartTimer(&timer);
 
-    add<<<1, 1>>>(dev_a, dev_b, dev_c, N);
+    add<<<NUM_BLOCK, BLOCK_SIZE>>>(dev_a, dev_b, dev_c, N);
 
     cudaDeviceSynchronize();
     cudaThreadSynchronize();
