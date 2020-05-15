@@ -13,7 +13,7 @@ __global__ void add(int *a, int *b, int *c, int N)
     }
 }
 
-int main(void)
+int main(int argc, char* argv[])
 {
 
     if (argc != 4)
@@ -25,7 +25,7 @@ int main(void)
     char *p;
 
     int ARRAY_SIZE;
-    ul_conv = strtoul(argv[1], &p, 10);
+    int ul_conv = strtoul(argv[1], &p, 10);
     ARRAY_SIZE = ul_conv;
 
     int NUM_BLOCK;
@@ -79,6 +79,6 @@ int main(void)
     cudaFree(dev_b);
     cudaFree(dev_c);
 
-    printf ("Time for the kernel: %f ms\n", time);
+    printf ("%d, %d, %d, %f\n", ARRAY_SIZE, NUM_BLOCK, BLOCK_SIZE, time);
     return 0;
 }
