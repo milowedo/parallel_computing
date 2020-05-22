@@ -39,8 +39,8 @@ void MatMul(const Matrix A, const Matrix B, Matrix C)
 	cudaMalloc((void**) &d_C.elements, size);
 	
 	// call kernel
-        dim3 dimBlock(); // define the block size (what is the best value?) 
-        dim3 dimGrid(); //  choose grid size depending on problem size 
+        dim3 dimBlock(BLOCK_SIZE, BLOCK_SIZE); // define the block size (what is the best value?) 
+        dim3 dimGrid(128); //  choose grid size depending on problem size 
         
 	MatMulKernel<<<dimGrid, dimBlock>>>(d_A, d_B, d_C);
 	
@@ -73,7 +73,7 @@ __global__ void MatMulKernel(Matrix A, Matrix B, Matrix C)
 //square matrix multiplication cpu
 void MatMulCPU(Matrix A, Matrix B, Matrix C)
 {
-	int i, n = A.width;
+	int i,j,k, n = A.width;
 	for(i = 0; i < n-1; ++i){
 		for(j = 0; j < n-1; ++j)
 		{
@@ -137,10 +137,10 @@ int main(int argc, char * const argv[])
 	//check if the same
 	for (int i=0; i<Width; i++)
 	{	for (int j=0; j<Width; j++)
-			if (C_gpu.elements[i*Width+j] != C_cpu.elements[i*Width+j]{
-				return 0;
+			if (C_gpu.elements[i*Width+j] != C_cpu.elements[i*Width+j]){
+				std::cout << "Different results.";
 			}
-		std::cout << "Different results.";
+		std::cout << "Same results.";
 	}
 
 	std::ofstream C_output;
@@ -151,5 +151,4 @@ int main(int argc, char * const argv[])
 		C_output<<endl;
 	}
 
-}
-	
+}	
