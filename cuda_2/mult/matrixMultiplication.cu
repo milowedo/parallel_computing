@@ -38,11 +38,10 @@ void MatMul(const Matrix A, const Matrix B, Matrix C)
 	size = d_C.width * d_C.height * sizeof(float);
 	cudaMalloc((void**) &d_C.elements, size);
 	
-	// call kernel
-        dim3 dimBlock(BLOCK_SIZE, BLOCK_SIZE); // define the block size (what is the best value?) 
-        dim3 dimGrid(128); //  choose grid size depending on problem size 
-        
-	MatMulKernel<<<dimGrid, dimBlock>>>(d_A, d_B, d_C);
+	// Invoke kernel
+    dim3 dimBlock(BLOCK_SIZE, BLOCK_SIZE);
+    dim3 dimGrid(B.width / dimBlock.x, A.height / dimBlock.y);
+    MatMulKernel<<<dimGrid, dimBlock>>>(d_A, d_B, d_C);
 	
 	// copy C to host
 	cudaMemcpy(C.elements, d_C.elements, size, cudaMemcpyDeviceToHost);
