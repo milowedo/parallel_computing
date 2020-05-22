@@ -73,11 +73,11 @@ __global__ void MatMulKernel(Matrix A, Matrix B, Matrix C)
 void MatMulCPU(Matrix A, Matrix B, Matrix C)
 {
 	int i,j,k, n = A.width;
-	for(i = 0; i < n-1; ++i){
-		for(j = 0; j < n-1; ++j)
+	for(i = 0; i < n; ++i){
+		for(j = 0; j < n; ++j)
 		{
 			C.elements[i*C.width +j] = 0;
-			for(k = 0; k < n-1; ++k)
+			for(k = 0; k < n; ++k)
             {
                 C.elements[i*C.width +j] += A.elements[i*A.width +k] * B.elements[k*A.width +j];
             }
@@ -137,16 +137,15 @@ int main(int argc, char * const argv[])
 	for (int i=0; i<Width; i++)
 	{	for (int j=0; j<Width; j++)
 			if (C_gpu.elements[i*Width+j] != C_cpu.elements[i*Width+j]){
-				std::cout << "Different results.";
+				return 0;
 			}
-		std::cout << "Same results.";
 	}
 
 	std::ofstream C_output;
 	C_output.open("C.txt");
 	for (int i=0; i<Width; i++)
 	{	for (int j=0; j<Width; j++)
-			C_output<<C_gpu.elements[i*Width+j]<<"\t";
+			C_output<<C_cpu.elements[i*Width+j]<<"\t";
 		C_output<<endl;
 	}
 
