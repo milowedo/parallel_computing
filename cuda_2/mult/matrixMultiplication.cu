@@ -5,6 +5,7 @@ using namespace std;
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
+#include <helper_timer.h>
 #define BLOCK_SIZE 16
 
 typedef struct
@@ -99,10 +100,10 @@ int main(int argc, char * const argv[])
     int WIDTH;
     WIDTH = strtoul(argv[1], &p, 10);
 
-    std::string ARRAY_A;
+    char* ARRAY_A;
     ARRAY_A = argv[2];
 
-    std::string ARRAY_B;
+    char* ARRAY_B;
 	ARRAY_B = argv[3];
 	
 	StopWatchInterface *timer=NULL;
@@ -149,13 +150,13 @@ int main(int argc, char * const argv[])
 	B_input.close();
 
 	sdkResetTimer(&timer);
-    sdkStartTimer(&timer);
+        sdkStartTimer(&timer);
 	MatMul(A, B, C_gpu);
-    sdkStopTimer(&timer);
+        sdkStopTimer(&timer);
 	float time_gpu = sdkGetTimerValue(&timer);
 	
 	sdkResetTimer(&timer);
-    sdkStartTimer(&timer);
+	sdkStartTimer(&timer);
 	MatMulCPU(A, B, C_cpu);
 	float time_cpu = sdkGetTimerValue(&timer);
 
@@ -163,7 +164,7 @@ int main(int argc, char * const argv[])
 	for (int i=0; i<WIDTH; i++)
 	{	for (int j=0; j<WIDTH; j++)
 			if (C_gpu.elements[i*WIDTH+j] != C_cpu.elements[i*WIDTH+j]){
-				return 0;
+				printf("something is no yes");
 			}
 	}
 
