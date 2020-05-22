@@ -70,6 +70,22 @@ __global__ void MatMulKernel(Matrix A, Matrix B, Matrix C)
 	}
 }
 
+//square matrix multiplication cpu
+void MatMulCPU(Matrix A, Matrix B, Matrix C)
+{
+	int i, n = A.width;
+	for(i = 0; i < n-1; ++i){
+		for(j = 0; j < n-1; ++j)
+		{
+			C.elements[i*C.width +j] = 0;
+			for(k = 0; k < n-1; ++k)
+            {
+                C.elements[i*C.width +j] += A.elements[i*A.width +k] * B.elements[k*A.width +j];
+            }
+		} 
+	}
+		        
+}
 
 int main(int argc, char * const argv[])
 {	
@@ -78,18 +94,22 @@ int main(int argc, char * const argv[])
 	Matrix A;
 	Matrix B;
 	Matrix C_gpu;
+	Matrix C_cpu;
 	
 	A.width = Width;
 	B.width = Width;
 	C_gpu.width = Width;
+	C_cpu.width = Width;
 	
 	A.height = Width;
 	B.height = Width;
 	C_gpu.height = Width;
+	C_cpu.height = Width;
 	
 	A.elements = new float[Width*Width];
 	B.elements = new float[Width*Width];
 	C_gpu.elements = new float[Width*Width];
+	C_cpu.elements = new float[Width*Width];
 	
 	//fill matrices
 	std::ifstream A_input;
@@ -112,12 +132,22 @@ int main(int argc, char * const argv[])
 	B_input.close();
 
 	MatMul(A, B, C_gpu);
+	MatMulCPU(A, B, C_cpu);
+
+	//check if the same
+	for (int i=0; i<Width; i++)
+	{	for (int j=0; j<Width; j++)
+			if (C_gpu.elements[i*Width+j] != C_cpu.elements[i*Width+j]{
+				return 0;
+			}
+		std::cout << "Different results.";
+	}
 
 	std::ofstream C_output;
 	C_output.open("C.txt");
 	for (int i=0; i<Width; i++)
 	{	for (int j=0; j<Width; j++)
-			C_output<<C.elements[i*Width+j]<<"\t";
+			C_output<<C_gpu.elements[i*Width+j]<<"\t";
 		C_output<<endl;
 	}
 
