@@ -12,10 +12,21 @@ rm $mul
 
 task=mul.out
 
-for j in 16 32 160 240 320 400
+for k in {1..10};
 do
-	for i in {1..1}
+let j=$k*64
+let max_rep=4*$k
+if [ -f $B$j ]; then rm $B$j; fi;
+
+for (( i=1; i<=$max_rep; i++ )); do cat B_16 >> $B$j; done;
+
+if [ -f $A$j ]; then rm $A$j; fi;
+
+for (( i=1; i<=$max_rep; i++ )) do cat A_16 >> $A$j; done;
+
+echo $j
+	for i in {1..50}
 	do
 	./$task $j $A$j $B$j >> $mul
-	done
+	done;
 done
