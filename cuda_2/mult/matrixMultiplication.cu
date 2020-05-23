@@ -18,7 +18,7 @@ typedef struct
 __global__ void MatMulKernel (const Matrix, const Matrix, Matrix);
 
 // Host code
-void MatMul(const Matrix A, const Matrix B, Matrix C, StopWatchInterface timer)
+void MatMul(const Matrix A, const Matrix B, Matrix C, StopWatchInterface* timer)
 {
 	// Load matrices A and B to device memory
 	Matrix d_A;
@@ -156,10 +156,10 @@ int main(int argc, char * const argv[])
 	B_input.close();
 
 	// gpu warmup
-	MatMul(A, B, C_gpu, &timer);
-	MatMul(A, B, C_gpu, &timer);
+	MatMul(A, B, C_gpu, timer);
+	MatMul(A, B, C_gpu, timer);
 
-	MatMul(A, B, C_gpu, &timer);
+	MatMul(A, B, C_gpu, timer);
 
 	float time_gpu = sdkGetTimerValue(&timer);
 	
