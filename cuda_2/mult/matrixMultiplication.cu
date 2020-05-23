@@ -18,7 +18,7 @@ typedef struct
 __global__ void MatMulKernel (const Matrix, const Matrix, Matrix);
 
 // Host code
-void MatMul(const Matrix A, const Matrix B, Matrix C)
+void MatMul(const Matrix A, const Matrix B, Matrix C, StopWatchInterface timer)
 {
 	// Load matrices A and B to device memory
 	Matrix d_A;
@@ -41,8 +41,14 @@ void MatMul(const Matrix A, const Matrix B, Matrix C)
 	
 	// Invoke kernel
     dim3 dimBlock(BLOCK_SIZE, BLOCK_SIZE);
-    dim3 dimGrid(B.WIDTH / dimBlock.x, A.height / dimBlock.y);
-    MatMulKernel<<<dimGrid, dimBlock>>>(d_A, d_B, d_C);
+	dim3 dimGrid(B.WIDTH / dimBlock.x, A.height / dimBlock.y);
+	
+	sdkResetTimer(&timer);
+	sdkStartTimer(&timer);
+	
+	MatMulKernel<<<dimGrid, dimBlock>>>(d_A, d_B, d_C);
+	
+	sdkStopTimer(&timer);
 	
 	// copy C to host
 	cudaMemcpy(C.elements, d_C.elements, size, cudaMemcpyDeviceToHost);
@@ -149,15 +155,21 @@ int main(int argc, char * const argv[])
 	A_input.close();
 	B_input.close();
 
-	sdkResetTimer(&timer);
-        sdkStartTimer(&timer);
-	MatMul(A, B, C_gpu);
-        sdkStopTimer(&timer);
+	// gpu warmup
+	MatMul(A, B, C_gpu, &timer);
+	MatMul(A, B, C_gpu, &timer);
+
+	MatMul(A, B, C_gpu, &timer);
+
 	float time_gpu = sdkGetTimerValue(&timer);
 	
 	sdkResetTimer(&timer);
 	sdkStartTimer(&timer);
+
 	MatMulCPU(A, B, C_cpu);
+
+	sdkStopTimer(&timer);
+
 	float time_cpu = sdkGetTimerValue(&timer);
 
 	//check if the same
