@@ -15,7 +15,7 @@ task=mul.out
 for k in {1..10};
 do
 let j=$k*64
-let max_rep=4*$k
+let max_rep=$j*$j/256
 if [ -f $B$j ]; then rm $B$j; fi;
 
 for (( i=1; i<=$max_rep; i++ )); do cat B_16 >> $B$j; done;
