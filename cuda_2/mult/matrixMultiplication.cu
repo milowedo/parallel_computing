@@ -47,6 +47,7 @@ void MatMul(const Matrix A, const Matrix B, Matrix C, StopWatchInterface* timer)
 	sdkStartTimer(&timer);
 	
 	MatMulKernel<<<dimGrid, dimBlock>>>(d_A, d_B, d_C);
+	cudaThreadSynchronize();
 	
 	sdkStopTimer(&timer);
 	
