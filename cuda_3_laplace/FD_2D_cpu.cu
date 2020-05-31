@@ -36,9 +36,21 @@ double get_time()
   return (double) tim.tv_sec+(tim.tv_usec/1000000.0); 
 }
 
-int main()
+int main(int argc, char * const argv[])
 {
-    int N = 128;
+    int N;		// For textures to work, N needs to be a multiple of
+	int BLOCKSIZE;	// 32. As I will be using BLOCKSIZE to be a multiple of 8
+						// I'll just look for the closest multiple of BLOCKSIZE (N_max)
+
+	if (argc != 2)
+    {
+        fprintf(stderr, "You have to provide size(n)  as arguments.\n");
+        return -1;
+	}
+
+	char *p;
+
+	N = strtoul(argv[1], &p, 10);
 
 	float xmin 	= 0.0f;
 	float xmax 	= 3.5f;
@@ -81,7 +93,7 @@ int main()
 	double stop = get_time();
 	
 	double elapsed = stop - start;
-	std::<<N<<";"<<0<<";"<<elapsed<<std::endl;
+	printf("%d, 0, %f\n", N, elapsed);
 
 	// std::ofstream temperature("temperature_cpu.txt");
 	// for (int j=0; j<N; j++)

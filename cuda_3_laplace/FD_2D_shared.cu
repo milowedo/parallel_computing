@@ -31,7 +31,7 @@ double get_time()
 }
 
 // GPU kernel
-__global__ void copy_array(float *u, float *u_prev, int N)
+__global__ void copy_array(float *u, float *u_prev, int N, int BSZ)
 {
         int i = threadIdx.x;
         int j = threadIdx.y;
@@ -41,7 +41,7 @@ __global__ void copy_array(float *u, float *u_prev, int N)
 
 }
 
-__global__ void update (float *u, float *u_prev, int N, float h, float dt, float alpha)
+__global__ void update (float *u, float *u_prev, int N, float h, float dt, float alpha, int BSZ)
 {
 	// Setting up indices
 	int i = threadIdx.x;
@@ -77,9 +77,11 @@ int main()
 {
 	if (argc != 3)
     {
-        fprintf(stderr, "You have to provide grid size(n) and blocksize  as arguments.\n");
+        fprintf(stderr, "You have to provide size(n) and blocksize  as arguments.\n");
         return -1;
 	}
+
+	char *p;
 	
 	// Allocate in CPU
 	int N;
@@ -135,15 +137,14 @@ int main()
 	dim3 dimBlock(BLOCKSIZE, BLOCKSIZE);
 	double start = get_time();
 	for (int t=0; t<steps; t++)
-	{	copy_array <<<dimGrid, dimBlock>>> (u_d, u_prev_d, N);
-		update <<<dimGrid, dimBlock>>> (u_d, u_prev_d, N, h, dt, alpha);
+	{	copy_array <<<dimGrid, dimBlock>>> (u_d, u_prev_d, N, BLOCKSIZE);
+		update <<<dimGrid, dimBlock>>> (u_d, u_prev_d, N, h, dt, alpha, BLOCKSIZE);
 	}
 	double stop = get_time();
 
 	checkErrors("update");
 	double elapsed = stop - start;
-	std::<<N<<";"<<BLOCKSIZE<<";"<<elapsed<<std::endl;
-	
+	printf("%d, %d, %f\n", N, BLOCKSIZE, elapsed);	
 	// Copy result back to host
 	cudaMemcpy(u, u_d, N*N*sizeof(float), cudaMemcpyDeviceToHost);
 

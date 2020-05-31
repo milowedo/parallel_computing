@@ -89,9 +89,11 @@ int main()
 
 	if (argc != 3)
     {
-        fprintf(stderr, "You have to provide grid size(n) and blocksize  as arguments.\n");
+        fprintf(stderr, "You have to provide size(n) and blocksize  as arguments.\n");
         return -1;
 	}
+
+	char *p;
 
 	N = strtoul(argv[1], &p, 10);
 	
@@ -165,7 +167,7 @@ int main()
 	
 	double elapsed = stop - start;
 
-	std::<<N<<";"<<BLOCKSIZE<<";"<<elapsed<<std::endl;
+	printf("%d, %d, %f\n", N, BLOCKSIZE, elapsed);
 
 	// Copy result back to host
 	cudaMemcpy(u, u_d, N_max*N_max*sizeof(float), cudaMemcpyDeviceToHost);
