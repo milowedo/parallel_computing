@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cmath>
 #include <sys/time.h>
+#define BSZ (8)
 
 void checkErrors(char *label)
 {
@@ -31,7 +32,7 @@ double get_time()
 }
 
 // GPU kernel
-__global__ void copy_array(float *u, float *u_prev, int N, int BSZ)
+__global__ void copy_array(float *u, float *u_prev, int N)
 {
         int i = threadIdx.x;
         int j = threadIdx.y;
@@ -41,7 +42,7 @@ __global__ void copy_array(float *u, float *u_prev, int N, int BSZ)
 
 }
 
-__global__ void update (float *u, float *u_prev, int N, float h, float dt, float alpha, int BSZ)
+__global__ void update (float *u, float *u_prev, int N, float h, float dt, float alpha)
 {
 	// Setting up indices
 	int i = threadIdx.x;
@@ -50,7 +51,7 @@ __global__ void update (float *u, float *u_prev, int N, float h, float dt, float
 	
 	if (I>=N*N){return;}	
 
-	__shared__ float u_prev_sh[BSZ][BSZ];
+        __shared__ float u_prev_sh[BSZ][BSZ];
 
 	u_prev_sh[i][j] = u_prev[I];
 	
@@ -137,8 +138,8 @@ int main(int argc, char * const argv[])
 	dim3 dimBlock(BLOCKSIZE, BLOCKSIZE);
 	double start = get_time();
 	for (int t=0; t<steps; t++)
-	{	copy_array <<<dimGrid, dimBlock>>> (u_d, u_prev_d, N, BLOCKSIZE);
-		update <<<dimGrid, dimBlock>>> (u_d, u_prev_d, N, h, dt, alpha, BLOCKSIZE);
+	{	copy_array <<<dimGrid, dimBlock>>> (u_d, u_prev_d, N);
+		update <<<dimGrid, dimBlock>>> (u_d, u_prev_d, N, h, dt, alpha);
 	}
 	double stop = get_time();
 
