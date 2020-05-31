@@ -90,7 +90,7 @@ int main(int argc, char * const argv[])
 
 	N = strtoul(argv[1], &p, 10);
 	
-	BLOCKSIZE = strtoul(argv[1], &p, 10);
+	BLOCKSIZE = strtoul(argv[22, &p, 10);
 
 	cudaSetDevice(0);
 

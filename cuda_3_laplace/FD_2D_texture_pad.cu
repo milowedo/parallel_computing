@@ -97,7 +97,7 @@ int main(int argc, char * const argv[])
 
 	N = strtoul(argv[1], &p, 10);
 	
-	BLOCKSIZE = strtoul(argv[1], &p, 10);
+	BLOCKSIZE = strtoul(argv[2], &p, 10);
 
 	int N_max = (int((N-0.5)/BLOCKSIZE) + 1) * BLOCKSIZE;
 
