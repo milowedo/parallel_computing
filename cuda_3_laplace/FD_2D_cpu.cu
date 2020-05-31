@@ -28,6 +28,14 @@ void update (float *u, float *u_prev, int N, float h, float dt, float alpha)
 	// as we don't touch boundaries
 }
 
+double get_time()
+{
+  struct timeval tim; 
+  cudaThreadSynchronize(); 
+  gettimeofday(&tim, NULL); 
+  return (double) tim.tv_sec+(tim.tv_usec/1000000.0); 
+}
+
 int main()
 {
     int N = 128;
@@ -62,11 +70,12 @@ int main()
 		}
 	}
 
+	
 	// Loop 
 	double start = get_time();
 	for (int t=0; t<steps; t++)
-	{	copy_array(u_d, u_prev_d, N);
-		update(u_d, u_prev_d, N, h, dt, alpha);
+	{	copy_array(u, u_prev, N);
+		update(u, u_prev, N, h, dt, alpha);
 
 	}
 	double stop = get_time();
