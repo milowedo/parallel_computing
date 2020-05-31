@@ -2,7 +2,7 @@
 #include <fstream>
 #include <cmath>
 #include <sys/time.h>
-#define BSZ (8)
+#define BSZ (32)
 
 void checkErrors(char *label)
 {
@@ -90,7 +90,7 @@ int main(int argc, char * const argv[])
 
 	N = strtoul(argv[1], &p, 10);
 	
-	BLOCKSIZE = strtoul(argv[22, &p, 10);
+	BLOCKSIZE = strtoul(argv[2], &p, 10);
 
 	cudaSetDevice(0);
 

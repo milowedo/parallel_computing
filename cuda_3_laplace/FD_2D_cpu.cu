@@ -93,7 +93,7 @@ int main(int argc, char * const argv[])
 	double stop = get_time();
 	
 	double elapsed = stop - start;
-	printf("%d, 0, %f\n", N, elapsed);
+	printf("%d, n, %f\n", N, elapsed);
 
 	// std::ofstream temperature("temperature_cpu.txt");
 	// for (int j=0; j<N; j++)
