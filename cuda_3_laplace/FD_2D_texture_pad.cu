@@ -6,22 +6,22 @@
 
 void checkErrors(char *label)
 {
-// we need to synchronise first to catch errors due to
-// asynchroneous operations that would otherwise
-// potentially go unnoticed
-cudaError_t err;
-err = cudaThreadSynchronize();
-if (err != cudaSuccess)
-{
-char *e = (char*) cudaGetErrorString(err);
-fprintf(stderr, "CUDA Error: %s (at %s)\n", e, label);
-}
-err = cudaGetLastError();
-if (err != cudaSuccess)
-{
-char *e = (char*) cudaGetErrorString(err);
-fprintf(stderr, "CUDA Error: %s (at %s)\n", e, label);
-}
+	// we need to synchronise first to catch errors due to
+	// asynchroneous operations that would otherwise
+	// potentially go unnoticed
+	cudaError_t err;
+	err = cudaThreadSynchronize();
+	if (err != cudaSuccess)
+	{
+		char *e = (char*) cudaGetErrorString(err);
+		fprintf(stderr, "CUDA Error: %s (at %s)\n", e, label);
+	}
+	err = cudaGetLastError();
+	if (err != cudaSuccess)
+	{
+		char *e = (char*) cudaGetErrorString(err);
+		fprintf(stderr, "CUDA Error: %s (at %s)\n", e, label);
+	}
 }
 
 double get_time() 
@@ -30,7 +30,6 @@ double get_time()
   gettimeofday(&tim, NULL);
   return (double) tim.tv_sec+(tim.tv_usec/1000000.0);
 }
-
 
 texture<float, 2> tex_u;
 texture<float, 2> tex_u_prev;
@@ -84,9 +83,19 @@ __global__ void update (float *u, float *u_prev, int N, float h, float dt, float
 int main()
 {
 	// Allocate in CPU
-	int N = 128;		// For textures to work, N needs to be a multiple of
-	int BLOCKSIZE = 16;	// 32. As I will be using BLOCKSIZE to be a multiple of 8
+	int N;		// For textures to work, N needs to be a multiple of
+	int BLOCKSIZE;	// 32. As I will be using BLOCKSIZE to be a multiple of 8
 						// I'll just look for the closest multiple of BLOCKSIZE (N_max)
+
+	if (argc != 3)
+    {
+        fprintf(stderr, "You have to provide grid size(n) and blocksize  as arguments.\n");
+        return -1;
+	}
+
+	N = strtoul(argv[1], &p, 10);
+	
+	BLOCKSIZE = strtoul(argv[1], &p, 10);
 
 	int N_max = (int((N-0.5)/BLOCKSIZE) + 1) * BLOCKSIZE;
 
@@ -156,24 +165,24 @@ int main()
 	
 	double elapsed = stop - start;
 
-	std::cout<<"time = "<<elapsed<<std::endl;
+	std::<<N<<";"<<BLOCKSIZE<<";"<<elapsed<<std::endl;
 
 	// Copy result back to host
 	cudaMemcpy(u, u_d, N_max*N_max*sizeof(float), cudaMemcpyDeviceToHost);
 
-	std::ofstream temperature("temperature_texture.txt");
-	for (int j=0; j<N; j++)
-	{	for (int i=0; i<N; i++)
-		{	I = N*j + i;
-			J = N_max*j + i;
-	//		std::cout<<u[J]<<"\t";
-			temperature<<x[I]<<"\t"<<y[I]<<"\t"<<u[J]<<std::endl;
-		}
-		temperature<<"\n";
-	//	std::cout<<std::endl;
-	}
+	// std::ofstream temperature("temperature_texture.txt");
+	// for (int j=0; j<N; j++)
+	// {	for (int i=0; i<N; i++)
+	// 	{	I = N*j + i;
+	// 		J = N_max*j + i;
+	// //		std::cout<<u[J]<<"\t";
+	// 		temperature<<x[I]<<"\t"<<y[I]<<"\t"<<u[J]<<std::endl;
+	// 	}
+	// 	temperature<<"\n";
+	// //	std::cout<<std::endl;
+	// }
 
-	temperature.close();
+	// temperature.close();
 
 	// Free device
 	cudaUnbindTexture(tex_u);

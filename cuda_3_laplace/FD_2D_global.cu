@@ -6,22 +6,22 @@
 
 void checkErrors(char *label)
 {
-// we need to synchronise first to catch errors due to
-// asynchroneous operations that would otherwise
-// potentially go unnoticed
-cudaError_t err;
-err = cudaThreadSynchronize();
-if (err != cudaSuccess)
-{
-char *e = (char*) cudaGetErrorString(err);
-fprintf(stderr, "CUDA Error: %s (at %s)\n", e, label);
-}
-err = cudaGetLastError();
-if (err != cudaSuccess)
-{
-char *e = (char*) cudaGetErrorString(err);
-fprintf(stderr, "CUDA Error: %s (at %s)\n", e, label);
-}
+	// we need to synchronise first to catch errors due to
+	// asynchroneous operations that would otherwise
+	// potentially go unnoticed
+	cudaError_t err;
+	err = cudaThreadSynchronize();
+	if (err != cudaSuccess)
+	{
+		char *e = (char*) cudaGetErrorString(err);
+		fprintf(stderr, "CUDA Error: %s (at %s)\n", e, label);
+	}
+	err = cudaGetLastError();
+	if (err != cudaSuccess)
+	{
+		char *e = (char*) cudaGetErrorString(err);
+		fprintf(stderr, "CUDA Error: %s (at %s)\n", e, label);
+	}
 }
 	
 double get_time() 
@@ -64,9 +64,21 @@ __global__ void update (float *u, float *u_prev, int N, float h, float dt, float
 
 int main()
 {
+
+	if (argc != 3)
+    {
+        fprintf(stderr, "You have to provide grid size(n) and blocksize  as arguments.\n");
+        return -1;
+	}
+	
 	// Allocate in CPU
-	int N = 128;
-	int BLOCKSIZE = 16;
+	int N;
+	int BLOCKSIZE;
+
+	N = strtoul(argv[1], &p, 10);
+	
+	BLOCKSIZE = strtoul(argv[1], &p, 10);
+	
 
 	cudaSetDevice(0);
 
@@ -122,23 +134,23 @@ int main()
 	checkErrors("update");
 	
 	double elapsed = stop - start;
-	std::cout<<"time = "<<elapsed<<std::endl;
+	std::<<N<<";"<<BLOCKSIZE<<";"<<elapsed<<std::endl;
 
 	// Copy result back to host
 	cudaMemcpy(u, u_d, N*N*sizeof(float), cudaMemcpyDeviceToHost);
 
-	std::ofstream temperature("temperature_global.txt");
-	for (int j=0; j<N; j++)
-	{	for (int i=0; i<N; i++)
-		{	I = N*j + i;
-		//	std::cout<<u[I]<<"\t";
-			temperature<<x[I]<<"\t"<<y[I]<<"\t"<<u[I]<<std::endl;
-		}
-		temperature<<"\n";
-		//std::cout<<std::endl;
-	}
+	// std::ofstream temperature("temperature_global.txt");
+	// for (int j=0; j<N; j++)
+	// {	for (int i=0; i<N; i++)
+	// 	{	I = N*j + i;
+	// 	//	std::cout<<u[I]<<"\t";
+	// 		temperature<<x[I]<<"\t"<<y[I]<<"\t"<<u[I]<<std::endl;
+	// 	}
+	// 	temperature<<"\n";
+	// 	//std::cout<<std::endl;
+	// }
 
-	temperature.close();
+	// temperature.close();
 
 	// Free device
 	cudaFree(u_d);

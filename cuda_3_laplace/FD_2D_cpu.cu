@@ -81,18 +81,18 @@ int main()
 	double stop = get_time();
 	
 	double elapsed = stop - start;
-	std::cout<<""<<elapsed<<std::endl;
+	std::<<N<<";"<<0<<";"<<elapsed<<std::endl;
 
-	std::ofstream temperature("temperature_cpu.txt");
-	for (int j=0; j<N; j++)
-	{	for (int i=0; i<N; i++)
-		{	I = N*j + i;
-		//	std::cout<<u[I]<<"\t";
-			temperature<<x[I]<<"\t"<<y[I]<<"\t"<<u[I]<<std::endl;
-		}
-		temperature<<"\n";
-		//std::cout<<std::endl;
-	}
+	// std::ofstream temperature("temperature_cpu.txt");
+	// for (int j=0; j<N; j++)
+	// {	for (int i=0; i<N; i++)
+	// 	{	I = N*j + i;
+	// 	//	std::cout<<u[I]<<"\t";
+	// 		temperature<<x[I]<<"\t"<<y[I]<<"\t"<<u[I]<<std::endl;
+	// 	}
+	// 	temperature<<"\n";
+	// 	//std::cout<<std::endl;
+	// }
 
-	temperature.close();
+	// temperature.close();
 }
