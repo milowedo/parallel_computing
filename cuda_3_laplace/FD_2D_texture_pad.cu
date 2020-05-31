@@ -80,7 +80,7 @@ __global__ void update (float *u, float *u_prev, int N, float h, float dt, float
 	}
 }
 
-int main()
+int main(int argc, char * const argv[])
 {
 	// Allocate in CPU
 	int N;		// For textures to work, N needs to be a multiple of

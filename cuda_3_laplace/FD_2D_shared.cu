@@ -73,7 +73,7 @@ __global__ void update (float *u, float *u_prev, int N, float h, float dt, float
 	// as we don't touch boundaries
 }
 
-int main()
+int main(int argc, char * const argv[])
 {
 	if (argc != 3)
     {
